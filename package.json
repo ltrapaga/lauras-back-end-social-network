@@ -2,13 +2,9 @@
   "name": "lauras-back-end-social-network",
   "version": "1.0.0",
   "description": "Social Network API",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index",
-    "dev": "nodemon index",
-    "seed": "node utils/seed",
-    "heroku-postbuild": "node utils/seed.js"
+    "start": "node server"
   },
   "repository": {
     "type": "git",
