@@ -35,7 +35,7 @@ const userSchema = new Schema(
   {
     // Mongoose supports two Schema options to transform Objects after querying MongoDb: toJSON and toObject
     toJSON: {
-        // Set virtuals to true so they will be included with response, overriding the default behavior
+      // Set virtuals to true so they will be included with response, overriding the default behavior
       virtuals: true,
     },
     id: false,
