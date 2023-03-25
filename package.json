@@ -12,8 +12,8 @@
     "url": "git+https://github.com/ltrapaga/lauras-back-end-social-network.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Laura Trapaga",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ltrapaga/lauras-back-end-social-network/issues"
   },
