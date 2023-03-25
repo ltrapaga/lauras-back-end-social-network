@@ -18,7 +18,7 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  // Post a new user
+  // Create a new user
   createNewUser(req, res) {
     User.create(req.body)
       .then((user) => res.json(user))
@@ -52,9 +52,8 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  // Add a friend by ID to an existing user by ID
+  // Add a friend by ID to an existing user
   addFriend(req, res) {
-    console.log("You are adding a new friend");
     console.log(req.body);
     User.findOneAndUpdate(
       { _id: req.params.userId },
@@ -65,6 +64,20 @@ module.exports = {
         !user
           ? res.status(404).json({ message: "No user found with that ID" })
           : res.json(user)
+      )
+      .catch((err) => res.status(500).json(err));
+  },
+  // Remove a friend by ID from an existing user
+  removeFriend(req, res) {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $pull: { friends: req.params.friendId } },
+      { runValidators: true, new: true }
+    )
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: "No user found with that ID" })
+          : res.json({ message: "Friend removed" })
       )
       .catch((err) => res.status(500).json(err));
   },
