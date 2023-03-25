@@ -4,6 +4,7 @@ const {
   getUsers,
   getSingleUser,
   createNewUser,
+  updateUser
 } = require("../../controllers/userController");
 
 router
@@ -13,6 +14,7 @@ router
 
 router
   .route("/:userId")
-  .get(getSingleUser);
+  .get(getSingleUser)
+  .put(updateUser)
 
 module.exports = router;
