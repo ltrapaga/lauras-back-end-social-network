@@ -37,6 +37,7 @@ const userSchema = new Schema(
     toJSON: {
       // Set virtuals to true so they will be included with response, overriding the default behavior
       virtuals: true,
+      versionKey: false
     },
     id: false,
   }

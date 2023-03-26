@@ -10,7 +10,6 @@ module.exports = {
   // Get a single user by ID
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
-      .select("-__v")
       .then((user) =>
         !user
           ? res.status(404).json({ message: "No user found with that ID" })
@@ -22,10 +21,7 @@ module.exports = {
   createNewUser(req, res) {
     User.create(req.body)
       .then((user) => res.json(user))
-      .catch((err) => {
-        console.log(err);
-        return res.status(500).json(err);
-      });
+      .catch((err) => res.status(500).json(err));
   },
   // Update existing user by ID
   updateUser(req, res) {
@@ -34,7 +30,6 @@ module.exports = {
       { $set: req.body },
       { runValidators: true, new: true }
     )
-      .select("-__v")
       .then((user) =>
         !user
           ? res.status(404).json({ message: "No user found with that ID" })
@@ -54,7 +49,6 @@ module.exports = {
   },
   // Add a friend by ID to an existing user
   addFriend(req, res) {
-    console.log(req.body);
     User.findOneAndUpdate(
       { _id: req.params.userId },
       { $addToSet: { friends: req.params.friendId } },
