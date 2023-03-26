@@ -17,6 +17,7 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
+  // Creat a new thought
   createThought(req, res) {
     Thought.create(req.body)
       .then(({ _id }) => {
@@ -33,17 +34,18 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
+  // Update existing thought by ID
   updateThought(req, res) {
     Thought.findOneAndUpdate(
-      {_id: req.params.thoughtId },
+      { _id: req.params.thoughtId },
       { $set: req.body },
       { runValidators: true, new: true }
     )
     .then((user) =>
-    !user
-      ? res.status(404).json({ message: "There was no thought found with this ID!" })
-      : res.json(user)
-  )
-  .catch((err) => res.status(500).json(err));
+      !user
+        ? res.status(404).json({ message: "There was no thought found with this ID!" })
+        : res.json(user)
+    )
+    .catch((err) => res.status(500).json(err));
   }
 };
