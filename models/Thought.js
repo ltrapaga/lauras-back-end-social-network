@@ -27,7 +27,7 @@ const thoughtSchema = new Schema(
       // Set virtuals and getters to true so they will be included with response, overriding the default behavior
       virtuals: true,
       getters: true,
-      versionKey: false
+      versionKey: false,
     },
     id: false,
   }
