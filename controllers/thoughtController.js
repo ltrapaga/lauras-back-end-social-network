@@ -17,7 +17,7 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  // Creat a new thought
+  // Create a new thought
   createThought(req, res) {
     Thought.create(req.body)
       .then(({ _id }) => {
@@ -29,7 +29,7 @@ module.exports = {
       })
       .then((thought) =>
         !thought
-          ? res.status(404).json({ message: "There was no thought found with this ID!" })
+          ? res.status(404).json({ message: "No thought found with that ID" })
           : res.json(thought)
       )
       .catch((err) => res.status(500).json(err));
@@ -41,11 +41,30 @@ module.exports = {
       { $set: req.body },
       { runValidators: true, new: true }
     )
-    .then((user) =>
-      !user
-        ? res.status(404).json({ message: "There was no thought found with this ID!" })
-        : res.json(user)
-    )
-    .catch((err) => res.status(500).json(err));
-  }
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: "No thought found with that ID" })
+          : res.json(user)
+      )
+      .catch((err) => res.status(500).json(err));
+  },
+  // Delete existing thought by ID and remove it from the user data
+  deleteThought(req, res) {
+    Thought.findOneAndRemove({ _id: req.params.thoughtId })
+      .then((thought) =>
+        !thought
+          ? res.status(404).json({ message: "No thought found with that ID" })
+          : User.findOneAndUpdate(
+              { thoughts: req.params.thoughtId },
+              { $pull: { thoughts: req.params.thoughtId } },
+              { new: true }
+            )
+      )
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: "Thought deleted, but no user found with that ID" })
+          : res.json({ message: `Thought deleted and removed from ${user.username}'s profile` })
+      )
+      .catch((err) => res.status(500).json(err));
+  },
 };
