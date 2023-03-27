@@ -1,4 +1,5 @@
-const { Schema, Types } = require('mongoose');
+const { Schema, Types } = require("mongoose");
+const dateFormat = require("date-and-time");
 
 // Create subdocument schema to be used in Thought model
 const reactionSchema = new Schema(
