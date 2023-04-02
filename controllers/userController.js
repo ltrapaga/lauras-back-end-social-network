@@ -39,14 +39,15 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  // Delete existing user by ID
+  // Delete existing user by ID and delete all user thoughts
   deleteUser(req, res) {
     User.findOneAndDelete({ _id: req.params.userId })
       .then((user) =>
         !user
           ? res.status(404).json({ message: "No user found with that ID" })
-          : res.json({ message: "User deleted" })
+          : Thought.deleteMany({ _id: { $in: user.thoughts } })
       )
+      .then(() => res.json({ message: "Account and thoughts deleted" }))
       .catch((err) => res.status(500).json(err));
   },
   // Add a friend by ID to an existing user
